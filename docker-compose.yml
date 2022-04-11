@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    env_file: ./.env
+    build:
+      context: .
+      args:
+        - USERNAME=$USERNAME
+    restart: always
+    ports:
+      - "1022:22"
+    tty: true
+    stdin_open: true

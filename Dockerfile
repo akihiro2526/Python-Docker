@@ -39,7 +39,6 @@ WORKDIR /home/$USERNAME/
 # install pyenv python
 SHELL [ "/bin/bash", "-c" ]
 RUN git clone https://github.com/pyenv/pyenv.git .pyenv
-
 ENV PATH $PATH:/home/$USERNAME/.pyenv/bin
 RUN echo -e '\n' >> ~/.bashrc &&\
     echo -e '# pyenv' >> ~/.bashrc &&\

@@ -51,7 +51,7 @@ RUN echo -e '\n' >> ~/.bashrc &&\
     pyenv install 3.10.4 &&\
     pyenv global 3.10.4
 
-# cp ~/.ssh/id_rsa.pub ./id_rsa.pub
+# Placement ssh public key
 COPY ./id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
 
 USER root

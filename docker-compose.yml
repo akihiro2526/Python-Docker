@@ -9,6 +9,6 @@ services:
         - USERNAME=$USERNAME
     restart: always
     ports:
-      - "1022:22"
+      - ${CONTAINER_PORT:-1022}:22
     tty: true
     stdin_open: true

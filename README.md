@@ -1,15 +1,25 @@
-# 概要説明
+# Python Docker
 
-Docker で Python の実行環境を構築
+Python 実行環境
 
-・パスワードなし SSH 接続
+## 特徴
 
-・pyenv
+- SSH 接続時のパスワード入力不要
+- pyenv から python をインストール
 
-## 使用環境
+## インストール
 
-macOS Monterey 12.3.1 (M1MAX )
+1.ssh キーを作成 ` ssh-keygen`
 
-## インストール方法
+2.公開鍵を Docker Context にコピー `cp ~/.ssh/id_rsa.pub ./id_rsa.pub`
 
-1.秘密鍵を作成
+3.環境変数を設定
+
+```
+# username
+USERNAME=********
+# ssh port
+CONTAINER_PORT=****
+```
+
+4.コンテナ起動 `docker compose up -d`

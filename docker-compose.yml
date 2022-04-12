@@ -9,6 +9,6 @@ services:
         - USERNAME=$USERNAME
     restart: always
     ports:
-      - ${SSH_PORT:-1022}:22
+      - ${SSH_PORT:-8022}:22
     tty: true
     stdin_open: true

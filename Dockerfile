@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
     sudo \
     g++ \
     openssh-server \
-    # For pyenv
     libffi-dev \
     libssl-dev \
     zlib1g-dev \

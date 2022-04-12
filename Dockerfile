@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# package
+# Packages
 RUN apt-get update && apt-get install -y \
     curl \
     dpkg \
@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     libopencv-dev \
     build-essential 
 
-# user setting
+# User setting
 ARG USERNAME=${USERNAME}
 RUN useradd -m -s /bin/bash $USERNAME && \
     echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -35,7 +35,7 @@ RUN useradd -m -s /bin/bash $USERNAME && \
 USER $USERNAME
 WORKDIR /home/$USERNAME/
 
-# install pyenv python
+# Install pyenv python
 SHELL [ "/bin/bash", "-c" ]
 RUN git clone https://github.com/pyenv/pyenv.git .pyenv
 ENV PATH $PATH:/home/$USERNAME/.pyenv/bin
@@ -54,6 +54,7 @@ COPY ./id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
 
 USER root
 
-# 権限変更が必要 chmod +x
+# Need to change permission
+# chmod +x
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -6,7 +6,8 @@ services:
     build:
       context: .
       args:
-        - USERNAME=$USERNAME
+        - USERNAME=${USERNAME:-user}
+        - PYTHON_VERSION=${PYTHON_VERSION:-3.10.4}
     restart: always
     ports:
       - ${SSH_PORT:-8022}:22

@@ -5,16 +5,10 @@ ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    dpkg \
-    wget \
-    gnupg \
-    lsof \
-    vim \
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y \
     git \
     sudo \
-    g++ \
     openssh-server \
     libffi-dev \
     libssl-dev \
@@ -35,26 +29,22 @@ RUN useradd -m -s /bin/bash $USERNAME && \
 USER $USERNAME
 WORKDIR /home/$USERNAME/
 
-# Install pyenv python
+# Install pyenv => python
+ARG PYTHON_VERSION=${PYTHON_VERSION}
 SHELL [ "/bin/bash", "-c" ]
 RUN git clone https://github.com/pyenv/pyenv.git .pyenv
 ENV PATH $PATH:/home/$USERNAME/.pyenv/bin
-RUN echo -e '\n' >> ~/.bashrc &&\
-    echo -e '# pyenv' >> ~/.bashrc &&\
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc &&\
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc &&\
     echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc &&\
     echo 'eval "$(pyenv init --path)"' >> ~/.bashrc &&\
     source ~/.bashrc &&\
     pyenv -v &&\
-    pyenv install 3.10.4 &&\
-    pyenv global 3.10.4
+    pyenv install $PYTHON_VERSION &&\
+    pyenv global $PYTHON_VERSION
 
 # Placement ssh public key
 COPY ./id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
 
 USER root
-
-# Need to change permission
-# chmod +x
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

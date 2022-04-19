@@ -2,24 +2,54 @@
 
 Python 実行環境
 
-## 特徴
+## Feature
 
+- Python 実行環境
 - SSH 接続時のパスワード入力不要
-- pyenv から python をインストール
 
-## インストール
+## Usage
 
-1.ssh キーを作成 ` ssh-keygen`
+事前に秘密鍵と公開鍵を作成しておく
+```
+ssh-keygen
+```
+※ `id_rsa` 以外の場合は `Makefile` を変更
 
-2.公開鍵を Docker Context にコピー `cp ~/.ssh/id_rsa.pub ./id_rsa.pub`
+1.環境変数を設定
+```
+# username [default - user]
+USERNAME=
 
-3.環境変数を設定
+# ssh port [default - 8022]
+SSH_PORT=
+
+# Python version [default - 3.10.4]
+PYTHON_VERSION=
+```
+
+2.コンテナ起動 
 
 ```
-# username
-USERNAME=********
-# ssh port
-CONTAINER_PORT=****
+make docker
 ```
 
-4.コンテナ起動 `docker compose up -d`
+## Distribution
+Ubuntu 20.04
+
+## Package
+- git
+- sudo
+- openssh-server
+- libffi-dev
+- libssl-dev
+- zlib1g-dev
+- liblzma-dev
+- tk-dev
+- libbz2-dev
+- libreadline-dev
+- libsqlite3-dev
+- libopencv-dev
+- build-essential 
+- pyenv
+- python
+- pip
